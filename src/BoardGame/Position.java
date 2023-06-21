@@ -3,7 +3,8 @@ package BoardGame;
 public class Position {
 
 	private int row;
-	private int column;
+	private int column; //Encapsulamento dos campos
+	
 	public Position(int row, int column) {
 		this.row = row;
 		this.column = column;
