@@ -1,6 +1,9 @@
 package Chess;
 
 import BoardGame.Board;
+import BoardGame.Position;
+import Chess.piece.King;
+import Chess.piece.Rook;
 
 public class ChessMatch {
 
@@ -8,6 +11,7 @@ public class ChessMatch {
 	
 	public ChessMatch() {
 		board = new Board(8, 8); //Tamanho do tabuleiro
+		initialSetup();
 	}
 	
 	public ChessPiece[][] getpieces(){ //Construtor da peça de xadrez
@@ -18,6 +22,13 @@ public class ChessMatch {
 			}
 		}
 		return mat;
+	}
+	
+	private void initialSetup() {
+		board.placePiece(new Rook(board, Color.WHITE), new Position(2, 1));
+		board.placePiece(new King(board, Color.BLACK), new Position(0, 4));
+		board.placePiece(new King(board, Color.BLACK), new Position(7, 4));
+
 	}
 	
 }
