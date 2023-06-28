@@ -60,6 +60,7 @@ public class ChessMatch {
 	
 	
 	public ChessPiece[][] getpieces() { // Construtor da peça de xadrez
+	
 		ChessPiece[][] mat = new ChessPiece[board.getRows()][board.getColumns()];
 		for (int i = 0; i < board.getRows(); i++) {
 			for (int j = 0; j < board.getColumns(); j++) {
@@ -70,16 +71,20 @@ public class ChessMatch {
 	}
 
 	public boolean[][] possibleMoves(ChessPosition sourcePosition) {
+		
 		Position position = sourcePosition.toPosition();
 		validateSourcePosition(position);
 		return board.piece(position).possibleMoves();
 	}
 
 	public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition) {
+		
 		Position source = sourcePosition.toPosition();
 		Position target = targetPosition.toPosition();
+		
 		validateSourcePosition(source);
 		validateTargetPosition(source, target);
+		
 		Piece capturedPiece = makeMove(source, target);
 
 		if (testCheck(currentPlayer)) {
@@ -119,11 +124,12 @@ public class ChessMatch {
 	}
 	
 	public ChessPiece replacePromotedPiece(String type) {
+		
 		if (promoted == null) {
 			throw new IllegalStateException("There is no piece to be promoted");
 		}
 		if (!type.equals("B") && !type.equals("N") && !type.equals("R") & !type.equals("Q")) {
-			return promoted;
+			return promoted; 
 		}
 
 		Position pos = promoted.getChessPosition().toPosition();
@@ -138,14 +144,15 @@ public class ChessMatch {
 	}
 
 	private ChessPiece newPiece(String type, Color color) {
+		
 		if (type.equals("B")) return new Bishop(board, color);
 		if (type.equals("N")) return new Knight(board, color);
 		if (type.equals("Q")) return new Queen(board, color);
 		return new Rook(board, color);
 	}
-	
 
 	private Piece makeMove(Position source, Position target) {
+		
 		ChessPiece p = (ChessPiece) board.removePiece(source);
 		p.increaseMoveCount();
 		Piece capturedPiece = board.removePiece(target);
@@ -247,6 +254,7 @@ public class ChessMatch {
 	}
 
 	public void validateSourcePosition(Position position) {
+		
 		if (!board.thereIsAPiece(position)) {
 			throw new ChessException("There is no piece on source position");
 		}
@@ -285,6 +293,7 @@ public class ChessMatch {
 	}
 
 	private boolean testCheck(Color color) {
+		
 		Position kingPosition = king(color).getChessPosition().toPosition();
 		List<Piece> opponentPieces = piecesOnTheBoard.stream()
 				.filter(x -> ((ChessPiece) x).getColor() == opponent(color)).collect(Collectors.toList());

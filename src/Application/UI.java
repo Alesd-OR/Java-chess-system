@@ -34,17 +34,20 @@ public class UI {
 	public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
 	public static void clearScreen() { // Método para limpar a tela conforme os tabuleiros vão atualizando
+	
 		System.out.println("\033[H\033[2J");
 		System.out.flush();
 	}
 
 	public static ChessPosition readChessPosition(Scanner oli) {
+		
 		try {
 			String a = oli.nextLine();
 			char column = a.charAt(0);
 			int row = Integer.parseInt(a.substring(1));
 			return new ChessPosition(column, row);
-		} catch (RuntimeException e) {
+		} 
+		catch (RuntimeException e) {
 			throw new InputMismatchException("Error reading ChessPosition. Valid values are from a1 to h8."); // Exceção
 																												// de
 																												// erro
@@ -68,6 +71,7 @@ public class UI {
 	}
 
 	public static void printMatch(ChessMatch chessMatch, List<ChessPiece> captured) {
+		
 		printBoard(chessMatch.getpieces());
 		System.out.println();
 		printCapturedPieces(captured);
@@ -82,6 +86,7 @@ public class UI {
 		} else {
 			System.out.println("CHECKMATE!");
 			System.out.println("Winner: " + chessMatch.getCurrentPlayer());
+			System.out.println("Project /*Created by Alesandro de Oliveira*/");
 		}
 	}
 
@@ -115,6 +120,7 @@ public class UI {
 
 	// Método respoonsável por imprimir na tela a quantidade de peças capturadas
 	private static void printCapturedPieces(List<ChessPiece> captured) {
+		
 		List<ChessPiece> white = captured.stream().filter(x -> x.getColor() == Color.WHITE)
 				.collect(Collectors.toList()); // Filtrar todas as peças do tabuleiro da cor BRANCA
 		List<ChessPiece> black = captured.stream().filter(x -> x.getColor() == Color.BLACK)
